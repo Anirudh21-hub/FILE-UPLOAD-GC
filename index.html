@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload to GCS</title>
+</head>
+<body>
+    <h1>Upload File to Google Cloud Storage</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" required>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = 'Uploading...';
+
+            try {
+                // Since the frontend is served by the Flask app, use a relative path
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    responseDiv.innerHTML = `File uploaded successfully! <br> Link: <a href="${result.file_url}" target="_blank">${result.file_url}</a>`;
+                } else {
+                    responseDiv.innerHTML = `Error: ${result.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `Network error: ${error.message}`;
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
