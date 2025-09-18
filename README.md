@@ -137,6 +137,10 @@ In this example, `MAX_FILE_SIZE_MB=10` would set the limit to 10 MB. The default
 http://127.0.0.1:5000/
 ## Video Demo
 https://drive.google.com/file/d/1Ei-c5AzLD_Vg43d_QbxD3lTks1Z8DHZi/view?usp=sharing
+## REFLECTION
+This project presented a valuable opportunity to adapt serverless functions across diverse cloud providers, revealing the subtle distinctions in their respective SDKs and deployment paradigms. The refactoring of the application to serve the frontend directly from the Flask backend, when transitioning to Google Cloud Run, was particularly insightful, as it streamlined the deployment process compared to managing separate static hosting.
+## HELP
+The Cursor AI assistant extensively utilized the web_search tool to gather crucial information regarding the specific configurations and SDKs pertinent to AWS Lambda, Azure Functions, and Google Cloud Platform
 
 
 
